@@ -1,0 +1,2 @@
+header: can be mapped 3 anker and conected with footer by one folder(logo)
+
