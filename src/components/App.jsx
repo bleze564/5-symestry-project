@@ -1,14 +1,25 @@
 import React from 'react';
-import Header from './SideParts/header/Header';
+import { GlobalStyle } from 'components/GlobalStyle';
+import Hero from './SideParts/hero/Hero';
+import Header from 'components/SideParts/header/Header';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center'
-      }}
-    >
-      <Header />
-    </div>
+    <>
+      <GlobalStyle />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent  : 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
+
+            <Header />
+
+          <Hero />
+        </div>
+      </>
+    
   );
 };
