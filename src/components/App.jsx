@@ -14,7 +14,7 @@ export const App = () => {
           flexDirection: 'column',
           alignItems: 'center',
         }}>
-
+          
             <Header />
 
           <Hero />
