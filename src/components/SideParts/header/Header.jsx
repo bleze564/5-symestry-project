@@ -334,9 +334,8 @@ const UserGreeting = styled.p`
   }
 `;
 
-const Header = () => {
+const Header = ({ currentUser, setCurrentUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const profileRef = useRef(null);

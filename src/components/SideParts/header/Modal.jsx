@@ -117,17 +117,18 @@ function Modal({ closeModal, setCurrentUser }) {
   const [isLogin, setIsLogin] = useState(false);
 
   async function handleSubmit(values) {
-    const url = isLogin
-      ? 'http://localhost:5000/login'
-      : 'http://localhost:5000/register';
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
+    const response = await fetch(
+      isLogin
+        ? 'http://localhost:5000/login'
+        : 'http://localhost:5000/register',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      }
+    );
 
     const data = await response.json();
 
@@ -137,9 +138,21 @@ function Modal({ closeModal, setCurrentUser }) {
     }
 
     toast.success(data.message);
+
+    if (typeof setCurrentUser !== 'function') {
+      console.log('setCurrentUser is broken:', setCurrentUser);
+
+      toast.error('setCurrentUser was not passed to Modal');
+
+      return;
+    }
+
     setCurrentUser(data.user);
+
     closeModal();
   }
+
+
 
   return (
     <Overlay>

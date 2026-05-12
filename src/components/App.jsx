@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalStyle } from 'components/GlobalStyle';
 import Hero from './SideParts/hero/Hero';
 import Header from 'components/SideParts/header/Header';
-
+import WeatherCast from './mainContent/weatherCast/WeatherCast';
 export const App = () => {
+const [currentUser, setCurrentUser] = useState(null);
+const [cityFromHero, setCityFromHero] = useState('');
   return (
     <>
       <GlobalStyle />
       <div
         style={{
           display: 'flex',
-          justifyContent  : 'center',
+          justifyContent: 'center',
           flexDirection: 'column',
           alignItems: 'center',
-        }}>
-          
-            <Header />
+        }}
+      >
+        <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
 
-          <Hero />
-
-        </div>
-      </>
-    
+        <Hero setCityFromHero={setCityFromHero} />
+        <WeatherCast
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          cityFromHero={cityFromHero}
+          setCityFromHero={setCityFromHero}
+        />
+      </div>
+    </>
   );
 };
