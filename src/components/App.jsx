@@ -3,6 +3,7 @@ import { GlobalStyle } from 'components/GlobalStyle';
 import Hero from './SideParts/hero/Hero';
 import Header from 'components/SideParts/header/Header';
 import WeatherCast from './mainContent/weatherCast/WeatherCast';
+import ActualNews from './mainContent/actualNews/ActualNews';
 export const App = () => {
 const [currentUser, setCurrentUser] = useState(null);
 const [cityFromHero, setCityFromHero] = useState('');
@@ -26,6 +27,7 @@ const [cityFromHero, setCityFromHero] = useState('');
           cityFromHero={cityFromHero}
           setCityFromHero={setCityFromHero}
         />
+        <ActualNews />
       </div>
     </>
   );

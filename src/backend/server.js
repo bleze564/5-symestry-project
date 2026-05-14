@@ -5,7 +5,7 @@ const path = require('path');
 
 require('dotenv').config({
   path: __dirname + '/.env',
-});                                 
+});
 
 const User = require('./models/user');
 
@@ -231,6 +231,48 @@ app.get('/weather/forecast/:city', async (req, res) => {
   }
 });
 
+app.get('/actual-news', async (req, res) => {
+  try {
+    const topic = req.query.topic || 'weather';
+    const page = req.query.page || 1;
+
+    if (!process.env.NEWS_API_KEY) {
+      return res.status(500).json({
+        message: 'News API key is missing',
+      });
+    }
+
+    const url = `https://newsapi.org/v2/everything?q=${topic}&language=en&sortBy=publishedAt&pageSize=12&page=${page}&apiKey=${process.env.NEWS_API_KEY}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(response.status).json({
+        message: data.message || 'News request failed',
+      });
+    }
+
+    const articles = data.articles
+      .filter(article => article.title && article.urlToImage && article.url)
+      .map(article => ({
+        title: article.title,
+        image: article.urlToImage,
+        url: article.url,
+        source: article.source?.name,
+      }));
+
+    res.json({
+      topic,
+      articles,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Actual news request error',
+      error: error.message,
+    });
+  }
+});
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

@@ -505,16 +505,15 @@ function WeatherCast({
         : [...prev, cityName]
     );
   }
-  useEffect(() => {
-    if (currentUser) {
-      setCities(currentUser.cities || []);
-    } else {
-      setCities([]);
-      setWeatherList([]);
-      setSelectedCity(null);
-      setForecastList([]);
-    }
-  }, [currentUser]);
+useEffect(() => {
+  if (currentUser) {
+    setCities(currentUser.cities || []);
+  } else {
+    setCities(['London', 'Kyiv', 'Paris']);
+    setSelectedCity(null);
+    setForecastList([]);
+  }
+}, [currentUser]);
 
   useEffect(() => {
     if (cities.length > 0) {
